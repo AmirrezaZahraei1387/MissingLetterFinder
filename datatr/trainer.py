@@ -22,8 +22,8 @@ def getAllPathes(folder: str):
 
     return pathes
 
-path = str(pathlib.Path("datatr", "raw_data").absolute())
-print(path)
-print(getAllPathes(path))
 
+PATH_RAW_DATA = str(pathlib.Path("datatr", "raw-data").absolute())
+PATH_RE_DATA = str(pathlib.Path("datatr", "re-data").absolute())
 
+NAME_DATA_FILE = "data_fs_d.csv"
