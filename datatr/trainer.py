@@ -51,7 +51,8 @@ class TrainMC:
         counter = Counter()
 
         for path in self.all_raw_data_files:
-            with open(path, encoding="utf-8", mode="r") as file:
+            print(path)
+            with open(path, mode="r") as file:
                 lines = file.readlines()
 
                 for line in lines:
@@ -61,10 +62,12 @@ class TrainMC:
 
                     # the output of the tagged tokens is a zipped tuple of the word and its tag. we do not want
                     # the part of the word
-                    tags = list(zip(*tagged_tokens))[1]
-                    tags = bigrams(tags)
+                    if tagged_tokens:
 
-                    counter += tags
+                        tags = list(zip(*tagged_tokens))[1]
+                        tags = bigrams(tags)
+
+                        counter += tags
 
         return counter
 
@@ -73,10 +76,9 @@ def writeCsv(re_data_folder: str, re_data_name: str, counter: Counter):
 
     new_path = os.path.join(re_data_folder, re_data_name)
 
-    with open(new_path, encoding="utf-8", mode="w") as file:
+    with open(new_path, mode="w") as file:
         writer = csv.writer(file)
 
         for item in counter.CountedElements.items():
-            print(item)
             writer.writerow(item)
 
