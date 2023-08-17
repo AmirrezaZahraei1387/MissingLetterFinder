@@ -1,7 +1,7 @@
 # standard library
 import os
 import csv
-import pathlib
+
 
 # third party libraries
 from nltk.tokenize import word_tokenize
@@ -40,7 +40,7 @@ def getAllPathes(folder: str):
 
 class TrainMC:
 
-    def __init__(self, raw_data_folder):
+    def __init__(self, raw_data_folder: str):
 
         self.raw_data_folder = raw_data_folder
 
@@ -68,5 +68,15 @@ class TrainMC:
 
         return counter
 
-def writeCsv():
+
+def writeCsv(re_data_folder: str, re_data_name: str, counter: Counter):
+
+    new_path = os.path.join(re_data_folder, re_data_name)
+
+    with open(new_path, encoding="utf-8", mode="w") as file:
+        writer = csv.writer(file)
+
+        for item in counter.CountedElements.items():
+            print(item)
+            writer.writerow(item)
 
