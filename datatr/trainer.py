@@ -7,8 +7,6 @@ import pathlib
 # third party libraries
 from nltk.tokenize import word_tokenize
 from nltk import bigrams, pos_tag
-from numpy import array
-from numpy import concatenate
 
 
 def getAllPathes(folder: str):
@@ -22,40 +20,57 @@ def getAllPathes(folder: str):
     return pathes
 
 
-PATH_RAW_DATA_D = str(pathlib.Path("raw-data").absolute())
-PATH_RE_DATA_D = str(pathlib.Path("re-data").absolute())
+class Counter:
 
-NAME_DATA_F = "data_fs_d.csv"
-PATH_RAW_DATA_FILES_F = getAllPathes(PATH_RAW_DATA_D)
+    CountedElements = {}
 
-all_tags = array([(9, 8), (0, 8)])
-counted_tag = {}
+    def addElement(self, array):
 
+        for element in array:
 
-for path in PATH_RAW_DATA_FILES_F:
+            if element in self.CountedElements:
+                self.CountedElements[element] += 1
 
-    with open(path, encoding="utf-8", mode="r") as file:
-        texture = file.read()
+            else:
+                self.CountedElements.update({element: 1})
 
-        tokens = word_tokenize(texture)
-        tagged_tokens = pos_tag(tokens)
-
-        # the output of the tagged tokens is a zipped tuple of the word and its tag. we do not want
-        # the part of the word
-        tags = array(list(zip(*tagged_tokens))[1])
-        tags = list(bigrams(tags))
-
-        all_tags = concatenate((all_tags, tags))
-
-    counted_tag = collections.Counter(tags)
-
-print(counted_tag)
-
-
-a = array([(5, 7), (7, 6)])
-counter = collections.Counter(a)
-
-print(counter)
+    def __add__(self, items):
+        self.addElement(items)
 
 
 
+
+# PATH_RAW_DATA_D = str(pathlib.Path("raw-data").absolute())
+# PATH_RE_DATA_D = str(pathlib.Path("re-data").absolute())
+#
+# NAME_DATA_F = "data_fs_d.csv"
+# PATH_RAW_DATA_FILES_F = getAllPathes(PATH_RAW_DATA_D)
+#
+# all_tags = array([(9, 8), (0, 8)])
+# counted_tag = {}
+#
+#
+# for path in PATH_RAW_DATA_FILES_F:
+#
+#     with open(path, encoding="utf-8", mode="r") as file:
+#         texture = file.read()
+#
+#         tokens = word_tokenize(texture)
+#         tagged_tokens = pos_tag(tokens)
+#
+#         # # the output of the tagged tokens is a zipped tuple of the word and its tag. we do not want
+#         # # the part of the word
+#         # tags = array(list(zip(*tagged_tokens))[1])
+#         # tags = list(bigrams(tags))
+#         #
+#         # all_tags = concatenate((all_tags, tags))
+#
+#     counted_tag = collections.Counter(tags)
+#
+# print(counted_tag)
+#
+#
+# a = array([(5, 7), (7, 6)])
+# counter = collections.Counter(a)
+#
+# print(counter)
