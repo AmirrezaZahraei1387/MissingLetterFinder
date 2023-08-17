@@ -23,7 +23,28 @@ def getAllPathes(folder: str):
     return pathes
 
 
-PATH_RAW_DATA = str(pathlib.Path("datatr", "raw-data").absolute())
-PATH_RE_DATA = str(pathlib.Path("datatr", "re-data").absolute())
 
-NAME_DATA_FILE = "data_fs_d.csv"
+PATH_RAW_DATA_D = str(pathlib.Path("datatr", "raw-data").absolute())
+PATH_RE_DATA_D = str(pathlib.Path("datatr", "re-data").absolute())
+
+NAME_DATA_F = "data_fs_d.csv"
+PATH_RAW_DATA_FILES_F = getAllPathes(PATH_RAW_DATA_D)
+
+
+
+
+for path in PATH_RAW_DATA_FILES_F:
+
+    with open(path, encoding="utf-8", mode="r") as file:
+        texture = file.read()
+
+        tokens = word_tokenize(texture)
+        tagged_tokens = pos_tag(tokens)
+
+        # the output of the tagged tokens is a zipped tuple of the word and its tag. we do not want
+        # the part of the word
+        tags = array(list(zip(*tagged_tokens))[1])
+
+        element, count = unique(tags, return_counts= True)
+
+        count_elements = dict(zip(element, count))
