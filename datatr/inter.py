@@ -1,12 +1,31 @@
 from datatr.datapath import DATA_PATH
 import csv
-import time
+from numpy import array
+print("f")
 
 
-def openData(path: str = DATA_PATH):
+class GetAfterObj:
+    """ this is a class to read and get the data from
+    the ready data. path is the path of the csv file .
+    you either specify one by yourself or use the
+    default case."""
 
-    with open(path, mode='r') as file:
-        reader = csv.reader(file)
-        reader = list(reader)
+    def __init__(self, path= DATA_PATH):
 
-    yield reader
+        self.path = DATA_PATH
+        self.data_obj = self.open()
+
+    def open(self):
+
+        with open(self.path, mode="r") as file:
+
+            reader = csv.reader(file)
+            arr = array(list(reader))
+
+        file.close()
+
+        yield arr
+
+
+
+
