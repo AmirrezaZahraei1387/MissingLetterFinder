@@ -80,5 +80,6 @@ def writeCsv(re_data_folder: str, re_data_name: str, counter: Counter):
         writer = csv.writer(file)
 
         for item in counter.CountedElements.items():
+            print(item)
             writer.writerow(item)
 
