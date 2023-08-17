@@ -76,10 +76,9 @@ def writeCsv(re_data_folder: str, re_data_name: str, counter: Counter):
 
     new_path = os.path.join(re_data_folder, re_data_name)
 
-    with open(new_path, mode="w") as file:
-        writer = csv.writer(file)
+    with open(new_path, mode="w", newline='') as file:
+        writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
         for item in counter.CountedElements.items():
             print(item)
-            writer.writerow(item)
-
+            writer.writerow([item[0][0], item[0][1],  item[1]])
