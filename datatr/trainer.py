@@ -6,6 +6,7 @@ import csv
 # third party libraries
 from nltk.tokenize import word_tokenize
 from nltk import bigrams, pos_tag
+from numpy import array as array_np
 
 
 class Counter:
@@ -25,6 +26,10 @@ class Counter:
     def __add__(self, items):
         self.addElement(items)
         return self
+
+    def sortArray(self):
+        pass
+
 
 
 def getAllPathes(folder: str):
@@ -60,8 +65,6 @@ class TrainMC:
                     tokens = word_tokenize(line)
                     tagged_tokens = pos_tag(tokens)
 
-                    # the output of the tagged tokens is a zipped tuple of the word and its tag. we do not want
-                    # the part of the word
                     if tagged_tokens:
 
                         tags = list(zip(*tagged_tokens))[1]
@@ -82,3 +85,4 @@ def writeCsv(re_data_folder: str, re_data_name: str, counter: Counter):
         for item in counter.CountedElements.items():
             print(item)
             writer.writerow([item[0][0], item[0][1],  item[1]])
+
