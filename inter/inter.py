@@ -1,7 +1,7 @@
-from datatr.datapath import DATA_PATH
+from datapath import DATA_PATH
 import csv
 from numpy import array
-
+import time
 
 
 class GetAfterObj:
